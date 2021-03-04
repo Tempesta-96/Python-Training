@@ -1,0 +1,5 @@
+restock B 20 
+restock A 30 
+restock D 20 
+make ABCD 2
+outstanding ABCD 2
