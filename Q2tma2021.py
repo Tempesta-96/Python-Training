@@ -120,7 +120,7 @@ def updateProductCode(stockLevel):
         partIdentifier = input(
             "Enter part identifier or <Enter> to end: ").upper()
         print(partIdentifier)
-        if partIdentifier is "":
+        if partIdentifier == "":
             print("end")
             break
         elif partIdentifier not in partIds:
@@ -136,6 +136,7 @@ def updateProductCode(stockLevel):
                 print("The QTY is invalid")
             elif valid == True:
                 total = int(stockLevel[index]) + qty
+                stockLevel[index] = total
                 print(f"updated stock level for {partIdentifier} = {total}")
                 content = f"restock {partIdentifier} {qty} \n"
                 writeFile(content)
@@ -206,19 +207,24 @@ outstanding {makeProductCode1} {makeQTY-count}\n'''
 
 def getSummary():
     readData = int(input("0-restock, 1-make, 2-outstanding. Enter choice : "))
+    action = ""
     if readData == 0:
         action = "restock"
     elif readData == 1:
         action = "make"
     elif readData == 2:
         action = "outstanding"
-    summaryContent = readFile()
-    print(summaryContent)
-    print(f"summarised data for {action.upper()}")
-    for content in summaryContent:
-        line = content.strip().split(" ")
-        if line[0] == action:
-            print(f"{line[1]} \t {line[2]}")
+    else :
+        print ("Choice is invalid")
+
+    if action != "":
+        summaryContent = readFile()
+        print(summaryContent)
+        print(f"summarised data for {action.upper()}")
+        for content in summaryContent:
+            line = content.strip().split(" ")
+            if line[0] == action:
+                print(f"{line[1]} \t {line[2]}")
 
 
 partIds = 'ABCDEFGHIJKL'
